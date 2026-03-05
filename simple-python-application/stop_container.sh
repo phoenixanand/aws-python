@@ -1,7 +1,14 @@
 #!/bin/bash
 set -e
 
-# Stop the running container (if any)
-containerid = docker ps | awk -f " " '{print $1}'
+echo "Checking for running containers..."
 
-docker rm -f containerid
+containerid=$(docker ps -q)
+
+if [ ! -z "$containerid" ]; then
+  echo "Stopping running container..."
+  docker stop $containerid
+  docker rm $containerid
+else
+  echo "No running containers found"
+fi
