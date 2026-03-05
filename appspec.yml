@@ -1,0 +1,12 @@
+version: 0.0
+os: linux
+
+hooks:
+  ApplicationStop:
+    - location: simple-python-application/stop_container.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: simple-python-application/start_container.sh
+      timeout: 300
+      runas: root
